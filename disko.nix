@@ -1,5 +1,6 @@
 {
-    device ? throw "device is required";
+    device ? throw "device is required",
+    ...
 }: {
   disko.devices = {
     disk.main = {

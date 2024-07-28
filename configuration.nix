@@ -16,4 +16,13 @@
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.displayManager.gnome.enable = true;
+
+
+  users.users.valmzn = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" ];
+    home = "/home/valmzn";
+    shell = pkgs.zsh;
+    initialPassword = "1234";
+  };
 }

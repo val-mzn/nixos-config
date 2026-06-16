@@ -84,3 +84,27 @@ liste `directories` ou `files` de `impermanence.nix`.
 # (candidats à persister ou à ignorer) :
 sudo fd --one-file-system --type f . / 2>/dev/null
 ```
+
+
+
+# Remonter tout sous /mnt sans reformater
+  sudo nix --experimental-features "nix-command flakes" run \
+    github:nix-community/disko/latest -- \
+    --mode mount /tmp/nixos-config/hosts/nixos/disko.nix
+
+  # Vérifier que /mnt/boot est bien monté
+  mount | grep /mnt/boot
+
+  Si /mnt/boot apparaît, crée les fichiers de mot de passe (s'ils ne sont pas déjà là) puis relance l'install :
+
+  # Vérifier si les fichiers existent déjà
+  ls -la /mnt/persist/passwords/
+
+  # Si absents, les créer
+  mkdir -p /mnt/persist/passwords
+  mkpasswd -m yescrypt "ton_mot_de_passe" > /mnt/persist/passwords/valmzn
+  mkpasswd -m yescrypt "mot_de_passe_root" > /mnt/persist/passwords/root
+  chmod 600 /mnt/persist/passwords/{valmzn,root}
+
+  # Relancer l'install
+  sudo nixos-install --flake /tmp/nixos-config#nixos --no-root-passwd

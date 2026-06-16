@@ -34,6 +34,15 @@
             type = "btrfs";
             extraArgs = [ "-f" ];
 
+            # Crée le snapshot de référence @-blank juste après le formatage,
+            # nécessaire pour que le service de rollback au boot puisse fonctionner.
+            postCreateHook = ''
+              MNTPOINT=$(mktemp -d)
+              mount -o subvol=/ /dev/disk/by-partlabel/disk-main-root "$MNTPOINT"
+              trap 'umount "$MNTPOINT"; rmdir "$MNTPOINT"' EXIT
+              btrfs subvolume snapshot -r "$MNTPOINT/@" "$MNTPOINT/@-blank"
+            '';
+
             subvolumes = {
               "@" = {
                 mountpoint = "/";

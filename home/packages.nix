@@ -8,7 +8,6 @@
 {
 
   home.packages = with pkgs; [
-    wofi
     mako
     hyprpaper
     grim
@@ -16,7 +15,14 @@
     wl-clipboard
     brightnessctl
     pavucontrol
+    discord
+    nixfmt
+    claude-code
+    font-awesome
+    nerd-fonts.jetbrains-mono
+    hyfetch
+    fastfetch
+    proton-vpn
+    nautilus
   ];
-
-  programs.waybar.enable = true;
 }

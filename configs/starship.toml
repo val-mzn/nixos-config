@@ -1,0 +1,53 @@
+# name: Rosé Pine
+# upstream: https://github.com/rose-pine/starship/blob/main/rose-pine.toml
+# All natural pine, faux fur and a bit of soho vibes for the classy minimalist
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = false
+command_timeout = 1300
+scan_timeout = 50
+palette = "rose-pine"
+
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$fill\
+$nix_shell\
+$nodejs\
+$lua\
+$golang\
+$rust\
+$php\
+$time\n\
+$character\
+"""
+
+[character]
+success_symbol = "[](bold green)"
+error_symbol = "[✗](bold red)"
+
+[directory]
+style = "fg:iris"
+
+[git_branch]
+style = "fg:foam"
+
+[git_status]
+style = "fg:love"
+
+[fill]
+symbol = " "
+
+[palettes.rose-pine]
+overlay = '#26233a'
+love = '#eb6f92'
+gold = '#f6c177'
+rose = '#ebbcba'
+pine = '#31748f'
+foam = '#9ccfd8'
+iris = '#c4a7e7'

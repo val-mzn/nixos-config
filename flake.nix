@@ -15,6 +15,13 @@
     };
 
     impermanence.url = "github:nix-community/impermanence";
+
+    nur.url = "github:nix-community/NUR";
+
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -24,6 +31,8 @@
       home-manager,
       disko,
       impermanence,
+      nur,
+      spicetify-nix,
       ...
     }@inputs:
     let
@@ -38,11 +47,13 @@
 
           disko.nixosModules.disko
           impermanence.nixosModules.impermanence
+          { nixpkgs.overlays = [ nur.overlays.default ]; }
 
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
             home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.users.valmzn = import ./home/valmzn.nix;
           }

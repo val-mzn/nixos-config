@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(fc-list)",
+      "Bash(waybar --log-level debug)",
+      "Bash(kill %1)",
+      "Bash(gh api *)",
+      "Bash(cat ~/.config/fish/config.fish 2>/dev/null | head -100)",
+      "Read(//home/valmzn/.config/fish/**)",
+      "*"
+    ]
+  }
+}

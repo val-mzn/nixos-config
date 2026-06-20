@@ -13,7 +13,16 @@
       "Read(//nix/store/y25vnvgvdw1lm5fz9v5acpa83wyjbg3a-rose-pine-gtk-theme-2.2.0/share/themes/rose-pine/**)",
       "Bash(nix-instantiate --eval -E 'with import <nixpkgs> {}; rose-pine-cursor.meta.description or \"n/a\"')",
       "Bash(nix-instantiate --eval -E 'with import <nixpkgs> {}; rose-pine-kvantum.meta.description or \"n/a\"')",
-      "Bash(sudo nixos-rebuild test --flake .#)"
+      "Bash(sudo nixos-rebuild test --flake .#)",
+      "Bash(curl -sL https://api.github.com/repos/rose-pine/swaync/contents/theme)",
+      "Bash(mkdir -p /tmp/swaync-rp)",
+      "Bash(curl -sLO https://raw.githubusercontent.com/rose-pine/swaync/main/theme/rose-pine.css)",
+      "Bash(curl -sLO https://raw.githubusercontent.com/rose-pine/swaync/main/theme/style.css)",
+      "Bash(curl -sLO https://raw.githubusercontent.com/rose-pine/swaync/main/theme/config.json)",
+      "Bash(xxd)",
+      "Bash(perl -i -CSD -pe ' *)",
+      "Bash(sed -n '131p' /home/valmzn/.dotfiles/home/waybar.nix)",
+      "Bash(sudo nixos-rebuild switch --flake .)"
     ]
   }
 }

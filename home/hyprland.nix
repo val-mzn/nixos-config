@@ -34,7 +34,7 @@
 
       exec-once = [
         "waybar"
-        "mako"
+        "swaync"
       ];
 
       monitor = ",preferred,auto,1";
@@ -83,11 +83,19 @@
         "$mod SHIFT, E, exec, $fileManager"
         "$mod, V, togglefloating,"
         "$mod, F, fullscreen,"
+        "$mod, C, centerwindow,"
+        "$mod, P, pin,"
+        "$mod, L, exec, hyprlock"
 
         "$mod, left, movefocus, l"
         "$mod, right, movefocus, r"
         "$mod, up, movefocus, u"
         "$mod, down, movefocus, d"
+
+        "$mod SHIFT, left, movewindow, l"
+        "$mod SHIFT, right, movewindow, r"
+        "$mod SHIFT, up, movewindow, u"
+        "$mod SHIFT, down, movewindow, d"
 
         "$mod, 1, workspace, 1"
         "$mod, 2, workspace, 2"
@@ -109,12 +117,26 @@
         "$mod, mouse:273, resizewindow"
       ];
 
+      binde = [
+        "$mod CTRL, left, resizeactive, -40 0"
+        "$mod CTRL, right, resizeactive, 40 0"
+        "$mod CTRL, up, resizeactive, 0 -40"
+        "$mod CTRL, down, resizeactive, 0 40"
+      ];
+
       bindel = [
         ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
         ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
         ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ",XF86MonBrightnessUp, exec, brightnessctl s 5%+"
         ",XF86MonBrightnessDown, exec, brightnessctl s 5%-"
+      ];
+
+      bindl = [
+        ",XF86AudioPlay, exec, playerctl play-pause"
+        ",XF86AudioPause, exec, playerctl play-pause"
+        ",XF86AudioNext, exec, playerctl next"
+        ",XF86AudioPrev, exec, playerctl previous"
       ];
     };
   };

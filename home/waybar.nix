@@ -6,8 +6,8 @@
 }:
 
 # Config based on https://github.com/brunoanesio/waybar-config
-# (Catppuccin Mocha theme), adapted to this setup: keeps mako for
-# notifications and uses `hyprctl dispatch exit` for the power button.
+# (Catppuccin Mocha theme), adapted to this setup: uses swaync for
+# notifications and `hyprctl dispatch exit` for the power button.
 
 {
   programs.waybar = {
@@ -40,6 +40,7 @@
           "clock"
           "clock#simpleclock"
           "tray"
+          "custom/notification"
           "custom/power"
         ];
 
@@ -120,6 +121,27 @@
             ];
           };
           on-click = "pavucontrol";
+        };
+
+        "custom/notification" = {
+          tooltip-format = "Notifications ({} unread)";
+          format = "{icon} {}";
+          format-icons = {
+            notification = "<span foreground='#eb6f92'><sup></sup></span>";
+            none = "󰎡";
+            dnd-notification = "<span foreground='#eb6f92'><sup></sup></span>";
+            dnd-none = "";
+            inhibited-notification = "<span foreground='#eb6f92'><sup></sup></span>";
+            inhibited-none = "";
+            dnd-inhibited-notification = "<span foreground='#eb6f92'><sup></sup></span>";
+            dnd-inhibited-none = "";
+          };
+          return-type = "json";
+          exec-if = "which swaync-client";
+          exec = "swaync-client -swb";
+          on-click = "swaync-client -t -sw";
+          on-click-right = "swaync-client -d -sw";
+          escape = true;
         };
 
         "custom/power" = {

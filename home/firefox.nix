@@ -12,8 +12,8 @@
     profiles.valmzn = {
       isDefault = true;
       settings = {
-        "ui.systemUsesDarkTheme" = 1;
-        "browser.in-content.dark-mode" = true;
+        "ui.systemUsesDarkTheme" = 0;
+        "browser.in-content.dark-mode" = false;
       };
       extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
         ublock-origin
@@ -21,8 +21,41 @@
         proton-pass
       ];
 
-      # Thème Rosé Pine (couleurs décodées depuis color.firefox.com),
-      # appliqué nativement via userChrome — 100 % déclaratif.
+      search = {
+        force = true;
+        default = "SearXNG";
+        privateDefault = "SearXNG";
+        order = [ "SearXNG" ];
+        engines = {
+          "SearXNG" = {
+            urls = [
+              {
+                template = "http://localhost:8888/search";
+                params = [
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            icon = "http://localhost:8888/static/themes/simple/img/favicon.png";
+            updateInterval = 24 * 60 * 60 * 1000;
+            definedAliases = [
+              "@sx"
+              "@searx"
+            ];
+          };
+
+          "Google".metaData.hidden = true;
+          "Bing".metaData.hidden = true;
+          "Amazon.com".metaData.hidden = true;
+          "eBay".metaData.hidden = true;
+          "DuckDuckGo".metaData.hidden = true;
+          "Wikipedia (en)".metaData.hidden = true;
+        };
+      };
+
       userChrome = ''
         :root {
           --rp-base:            #191724; /* frame / arrière-plan */

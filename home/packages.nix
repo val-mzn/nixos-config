@@ -8,7 +8,6 @@
 {
 
   home.packages = with pkgs; [
-    mako
     hyprpaper
     grim
     slurp
@@ -18,7 +17,7 @@
     discord
     nixfmt
     claude-code
-    nodejs    # requis par le skill/hooks caveman (exécutés via `node` à chaque session)
+    nodejs # requis par le skill/hooks caveman (exécutés via `node` à chaque session)
     font-awesome
     nerd-fonts.jetbrains-mono
     lexend
@@ -26,6 +25,7 @@
     hyfetch
     fastfetch
     proton-vpn
+    proton-pass
     nautilus
     libsForQt5.qtstyleplugin-kvantum
     qt6Packages.qtstyleplugin-kvantum

@@ -18,6 +18,7 @@
     ./desktop.nix
     ./audio.nix
     ./packages.nix
+    ./searx.nix
   ];
 
   nix.settings.experimental-features = [

@@ -10,11 +10,13 @@
     ./packages.nix
     ./terminal.nix
     ./hyprland.nix
+    ./hyprlock.nix
     ./wofi.nix
     ./awww.nix
     ./vscode.nix
     ./firefox.nix
     ./waybar.nix
+    ./swaync.nix
     ./spicetify.nix
     ./discord.nix
   ];
@@ -63,6 +65,20 @@
   xdg.configFile = {
     "gtk-4.0/gtk.css".text = ''
       @import url("file://${pkgs.rose-pine-gtk-theme}/share/themes/rose-pine/gtk-4.0/gtk.css");
+
+      @define-color sidebar_fg_color #e0def4;
+      @define-color sidebar_backdrop_color #26233a;
+      @define-color sidebar_shade_color #1f1d2e;
+      @define-color secondary_sidebar_bg_color #26233a;
+      @define-color secondary_sidebar_fg_color #e0def4;
+      @define-color secondary_sidebar_backdrop_color #26233a;
+      @define-color secondary_sidebar_shade_color #1f1d2e;
+      @define-color dialog_bg_color #1f1d2e;
+      @define-color dialog_fg_color #e0def4;
+      @define-color thumbnail_bg_color #26233a;
+      @define-color thumbnail_fg_color #e0def4;
+      @define-color shade_color rgba(0,0,0,0.36);
+      @define-color scrollbar_outline_color rgba(0,0,0,0.5);
     '';
 
     "Kvantum/rose-pine".source = "${pkgs.rose-pine-kvantum}/share/Kvantum/themes/rose-pine";

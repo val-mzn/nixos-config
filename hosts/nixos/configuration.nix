@@ -19,6 +19,8 @@
     ./audio.nix
     ./packages.nix
     ./searx.nix
+    ./docker.nix
+    ./bento.nix
   ];
 
   nix.settings.experimental-features = [

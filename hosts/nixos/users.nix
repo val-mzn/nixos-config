@@ -27,4 +27,9 @@
   };
 
   programs.fish.enable = true;
+
+  security.sudo = {
+    enable = true;
+    wheelNeedsPassword = false;
+  };
 }

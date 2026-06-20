@@ -14,11 +14,17 @@
       settings = {
         "ui.systemUsesDarkTheme" = 0;
         "browser.in-content.dark-mode" = false;
+
+        "browser.startup.page" = 1;
+        "browser.startup.homepage" = "http://localhost:3000";
+        "browser.newtabpage.enabled" = true;
+        "extensions.newTabOverride.newTabURL" = "http://localhost:3000";
       };
       extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
         ublock-origin
         darkreader
         proton-pass
+        new-tab-override
       ];
 
       search = {

@@ -5,315 +5,259 @@
   ...
 }:
 
+# Config based on https://github.com/brunoanesio/waybar-config
+# (Catppuccin Mocha theme), adapted to this setup: keeps mako for
+# notifications and uses `hyprctl dispatch exit` for the power button.
+
 {
   programs.waybar = {
     enable = true;
 
     settings = {
       mainBar = {
-        layer = "top";
+        layer = "bottom";
         position = "top";
-        height = 36;
-        margin-left = 0;
-        margin-right = 0;
+        height = 40;
+        spacing = 2;
+        exclusive = true;
+        gtk-layer-shell = true;
+        passthrough = false;
+        fixed-center = true;
 
         modules-left = [
-          "clock"
-          "wlr/taskbar"
+          "hyprland/workspaces"
+          "hyprland/window"
         ];
 
         modules-center = [
-          "hyprland/workspaces"
+          "mpris"
         ];
 
         modules-right = [
-          "tray"
-          "wireplumber"
-          "wireplumber#source"
           "cpu"
           "memory"
-          "disk"
-          "temperature"
-          "network"
+          "pulseaudio"
+          "clock"
+          "clock#simpleclock"
+          "tray"
           "custom/power"
         ];
 
-        clock = {
-          format = "  {:%H:%M}";
-          format-alt = "  {:%a %d %b %Y}";
-          tooltip-format = "<tt><small>{calendar}</small></tt>";
+        mpris = {
+          player = "spotify";
+          dynamic-order = [
+            "artist"
+            "title"
+          ];
+          format = "{player_icon} {dynamic}";
+          format-paused = "{status_icon} <i>{dynamic}</i>";
+          status-icons = {
+            paused = "";
+          };
+          player-icons = {
+            default = "";
+          };
         };
 
-        "wlr/taskbar" = {
-          format = "{icon}";
-          icon-size = 16;
-          all-outputs = true;
-          tooltip-format = "{name}: {title}";
-          on-click = "activate";
-          on-click-middle = "close";
-        };
-
-        # ── Center ────────────────────────────────────────────
         "hyprland/workspaces" = {
-          all-outputs = true;
-          format = "{id}";
           on-click = "activate";
+          format = "{id}";
+          all-outputs = true;
+          disable-scroll = false;
+          active-only = false;
         };
 
-        # ── Right ─────────────────────────────────────────────
+        "hyprland/window" = {
+          format = "{title}";
+        };
+
         tray = {
-          icon-size = 14;
+          show-passive-items = true;
           spacing = 10;
         };
 
-        wireplumber = {
-          format = " {icon} ";
-          format-muted = "   ";
-          on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-          on-scroll-up = "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+";
-          on-scroll-down = "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-";
-          scroll-step = 5;
-          format-icons = {
-            headphone = "";
-            headset = "";
-            default = [
-              ""
-              ""
-              ""
-            ];
-          };
-          tooltip = true;
-          tooltip-format = "{icon}  at {volume}%";
+        "clock#simpleclock" = {
+          tooltip = false;
+          format = " {:%H:%M}";
         };
 
-        "wireplumber#source" = {
-          format = " {format_source}";
-          format-source = "";
-          format-source-muted = "";
-          on-click = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
-          on-scroll-up = "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+";
-          on-scroll-down = "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%-";
-          scroll-step = 5;
-          tooltip = true;
-          tooltip-format = "  at {volume}%";
+        clock = {
+          format = " {:L%a %d %b}";
+          calendar = {
+            format = {
+              days = "<span weight='normal'>{}</span>";
+              months = "<span color='#e0def4'><b>{}</b></span>";
+              today = "<span color='#eb6f92' weight='700'><u>{}</u></span>";
+              weekdays = "<span color='#f6c177'><b>{}</b></span>";
+              weeks = "<span color='#9ccfd8'><b>W{}</b></span>";
+            };
+            mode = "month";
+            mode-mon-col = 1;
+            on-scroll = 1;
+          };
+          tooltip-format = "<span color='#e0def4' font='Lexend 16'><tt><small>{calendar}</small></tt></span>";
         };
 
         cpu = {
-          interval = 10;
-          format = "󰻠 {usage}%";
-          format-alt = "󰻠 {usage}%";
-          max-length = 10;
+          format = " {usage}%";
+          tooltip = true;
+          interval = 1;
         };
 
         memory = {
-          interval = 30;
-          format = "󰍛 {}%";
-          format-alt = "󰍛 {}%";
-          max-length = 10;
-          tooltip = true;
-          tooltip-format = "Memory - {used:0.1f}GB used";
+          format = " {used:0.1f}Gi";
         };
 
-        disk = {
-          interval = 600;
-          format = "󰋊";
-          path = "/";
-          format-alt = "󰋊 {percentage_used}%";
-          tooltip = true;
-          tooltip-format = "HDD - {used} used out of {total} on {path} ({percentage_used}%)";
-          states = {
-            warning = 85;
-            critical = 90;
+        pulseaudio = {
+          format = "{icon} {volume}%";
+          format-muted = "  muted";
+          format-icons = {
+            headphone = "";
+            default = [
+              " "
+              " "
+              " "
+            ];
           };
-        };
-
-        temperature = {
-          hwmon-path-abs = "/sys/devices/platform/coretemp.0/hwmon";
-          input-filename = "temp1_input";
-          format = "󰔏 {temperatureC}°C";
-          format-alt = "󰔏 {temperatureC}°C";
-          critical-threshold = 70;
-          format-critical = "󰔏 {temperatureC}°C";
-        };
-
-        network = {
-          format = "{ifname}";
-          format-wifi = " ";
-          format-ethernet = " ";
-          format-disconnected = " ";
-          tooltip-format = " {ifname} via {gwaddr}";
-          tooltip-format-wifi = " {essid} ({signalStrength}%)";
-          tooltip-format-ethernet = " {ifname} {ipaddr}/{cidr}";
-          tooltip-format-disconnected = "Disconnected";
-          max-length = 50;
+          on-click = "pavucontrol";
         };
 
         "custom/power" = {
-          format = " ";
-          on-click = "hyprctl dispatch exit";
           tooltip = false;
+          on-click = "hyprctl dispatch exit";
+          format = "⏻";
         };
       };
     };
 
     style = ''
-      /* Colors (dracula) */
-      @define-color foreground	#f8f8f2;
-      @define-color background	rgba(40, 42, 54, 0.5);
-      @define-color orange	#ffb86c;
-      @define-color gray	#44475a;
-      @define-color black #21222c;
-      @define-color red	#ff5555;
-      @define-color green	#50fa7b;
-      @define-color yellow	#f1fa8c;
-      @define-color cyan	#8be9fd;
-      @define-color blue	#6272a4;
-      @define-color purple	#bd93f9;
-      @define-color pink	#ff79c6;
-      @define-color white #ffffff;
-      @define-color brred #ff6e6e;
-
-      @define-color arch_blue #89b4fa;
-
-      @define-color workspace_active_background	@green;
-      @define-color workspace_active	@black;
-      @define-color workspace_hover_background	@pink;
-      @define-color workspace_hover	@black;
-      @define-color workspace_urgent_background	@brred;
-      @define-color workspace_urgent	@white;
-      @define-color critical	@red;
-      @define-color warning	@yellow;
-
-      @keyframes blink {
-          to {
-              background-color: @white;
-              color: @black;
-          }
-      }
+      /* Rosé Pine — https://github.com/rose-pine/waybar */
+      @define-color base          #191724;
+      @define-color surface       #1f1d2e;
+      @define-color overlay       #26233a;
+      @define-color muted         #6e6a86;
+      @define-color subtle        #908caa;
+      @define-color text          #e0def4;
+      @define-color love          #eb6f92;
+      @define-color gold          #f6c177;
+      @define-color rose          #ebbcba;
+      @define-color pine          #31748f;
+      @define-color foam          #9ccfd8;
+      @define-color iris          #c4a7e7;
+      @define-color highlightLow  #21202e;
+      @define-color highlightMed  #403d52;
+      @define-color highlightHigh #524f67;
 
       * {
-          border: none;
-          border-radius: 0;
-          font-family: "JetBrainsMono Nerd Font", "monospace";
-          font-weight: bold;
-          font-size: 16px;
-          min-height: 0;
+        min-height: 0;
+        min-width: 0;
+        font-family: Lexend, "JetBrainsMono NFP";
+        font-size: 16px;
+        font-weight: 600;
       }
 
       window#waybar {
-          background: transparent;
-          color: @foreground;
+        transition-property: background-color;
+        transition-duration: 0.5s;
+        background-color: @base;
       }
 
-      #workspaces {
-          background: @background;
-          opacity: 1;
-          transition: none;
-          padding: 5px 5px;
-          border-radius: 5px;
-      }
-
-      #workspaces button,
-      #workspaces button.empty {
-          background: transparent;
-          color: @blue;
-          border-radius: 5px;
-          padding: 0 6px;
-          min-width: 18px;
-          transition: none;
-      }
-
-      #workspaces button.active {
-          background: @workspace_active_background;
-          color: @workspace_active;
-          border-radius: 5px;
-          border-bottom: 2px solid @pink;
-      }
-
-      #workspaces button.urgent {
-          background: @workspace_urgent_background;
-          color: @workspace_urgent;
-          border-radius: 5px;
-          animation-name: blink;
-          animation-duration: 0.5s;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-          animation-direction: alternate;
+      #workspaces button {
+        padding: 0.3rem 0.6rem;
+        margin: 0.4rem 0.25rem;
+        border-radius: 6px;
+        background-color: @surface;
+        color: @text;
       }
 
       #workspaces button:hover {
-          background: @workspace_hover_background;
-          color: @workspace_hover;
-          border-radius: 5px;
+        color: @base;
+        background-color: @text;
       }
 
-      #taskbar {
-          background: @background;
-          border-radius: 5px;
-          margin: 5px 10px 5px 50px;
+      #workspaces button.active {
+        background-color: @surface;
+        color: @foam;
       }
 
-      tooltip {
-          background: @background;
-          opacity: 0.95;
-          border-radius: 10px;
-          border-width: 2px;
-          border-style: solid;
-          border-color: @purple;
+      #workspaces button.urgent {
+        background-color: @surface;
+        color: @love;
       }
 
-      tooltip label {
-          color: @foreground;
-      }
-
-      #custom-launcher,
-      #custom-power,
-      #cpu,
-      #disk,
-      #memory,
       #clock,
-      #network,
+      #pulseaudio,
+      #custom-logo,
+      #custom-power,
+      #custom-spotify,
+      #custom-notification,
+      #cpu,
       #tray,
-      #temperature,
-      #wireplumber {
-          background: @background;
-          opacity: 1;
-          padding: 0px 8px;
-          margin: 2px 0px 2px 0px;
+      #memory,
+      #window,
+      #mpris {
+        padding: 0.3rem 0.6rem;
+        margin: 0.4rem 0.25rem;
+        border-radius: 6px;
+        background-color: @surface;
       }
 
-      #disk.critical,
-      #temperature.critical {
-          background-color: @critical;
+      #mpris.playing {
+        color: @foam;
       }
 
-      #disk.warning,
-      #temperature.warning {
-          background-color: @warning;
+      #mpris.paused {
+        color: @muted;
       }
 
-      #custom-launcher {
-          color: @arch_blue;
-          border-radius: 5px 0px 0px 5px;
+      #custom-sep {
+        padding: 0px;
+        color: @highlightHigh;
       }
 
-      #custom-power {
-          color: @red;
-          border-radius: 0px 5px 5px 0px;
+      window#waybar.empty #window {
+        background-color: transparent;
+      }
+
+      #cpu {
+        color: @foam;
+      }
+
+      #memory {
+        color: @iris;
       }
 
       #clock {
-          border-radius: 5px;
+        color: @rose;
       }
 
-      #tray {
-          background: @background;
-          border-radius: 5px;
-          margin: 5px 50px 5px 10px;
+      #clock.simpleclock {
+        color: @foam;
       }
 
-      #wireplumber.source {
-          background: @background;
+      #window {
+        color: @text;
+      }
+
+      #pulseaudio {
+        color: @iris;
+      }
+
+      #pulseaudio.muted {
+        color: @subtle;
+      }
+
+      #custom-logo {
+        color: @foam;
+      }
+
+      #custom-power {
+        color: @love;
+      }
+
+      tooltip {
+        background-color: @surface;
+        border: 2px solid @foam;
       }
     '';
   };

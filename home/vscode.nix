@@ -14,6 +14,7 @@
         anthropic.claude-code
         jnoortheen.nix-ide
         mvllow.rose-pine
+        vscode-icons-team.vscode-icons
       ];
 
       userSettings = {
@@ -21,8 +22,9 @@
         "window.zoomLevel" = 1;
         "editor.formatOnSave" = true;
         "nix.enableLanguageServer" = true;
-        "nix.serverPath" = "nil";
+        "nix.serverPath" = lib.getExe pkgs.nil;
         "workbench.colorTheme" = "Rosé Pine";
+        "workbench.iconTheme" = "vscode-icons";
       };
     };
   };

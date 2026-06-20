@@ -30,7 +30,7 @@
       enable_audio_bell = false;
       font_family = "JetBrainsMono Nerd Font";
       font_size = 14.0;
-      background_opacity = "0.75";
+      background_opacity = "0.9";
       dynamic_background_opacity = true;
     };
 

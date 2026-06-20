@@ -7,7 +7,13 @@
       "Bash(gh api *)",
       "Bash(cat ~/.config/fish/config.fish 2>/dev/null | head -100)",
       "Read(//home/valmzn/.config/fish/**)",
-      "*"
+      "*",
+      "Bash(nix-build '<nixpkgs>' -A rose-pine-gtk-theme --no-out-link)",
+      "Read(//nix/store/y25vnvgvdw1lm5fz9v5acpa83wyjbg3a-rose-pine-gtk-theme-2.2.0/share/themes/**)",
+      "Read(//nix/store/y25vnvgvdw1lm5fz9v5acpa83wyjbg3a-rose-pine-gtk-theme-2.2.0/share/themes/rose-pine/**)",
+      "Bash(nix-instantiate --eval -E 'with import <nixpkgs> {}; rose-pine-cursor.meta.description or \"n/a\"')",
+      "Bash(nix-instantiate --eval -E 'with import <nixpkgs> {}; rose-pine-kvantum.meta.description or \"n/a\"')",
+      "Bash(sudo nixos-rebuild test --flake .#)"
     ]
   }
 }

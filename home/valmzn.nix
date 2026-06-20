@@ -11,7 +11,7 @@
     ./terminal.nix
     ./hyprland.nix
     ./wofi.nix
-    ./swww.nix
+    ./awww.nix
     ./vscode.nix
     ./firefox.nix
     ./waybar.nix
@@ -26,9 +26,16 @@
 
   home.pointerCursor = {
     gtk.enable = true;
-    name = "Adwaita";
+    x11.enable = true;
+    name = "BreezeX-RosePine-Linux";
     size = 24;
-    package = pkgs.adwaita-icon-theme;
+    package = pkgs.rose-pine-cursor;
+  };
+
+  qt = {
+    enable = true;
+    platformTheme.name = "kvantum";
+    style.name = "kvantum";
   };
 
   dconf.settings = {
@@ -51,6 +58,18 @@
     gtk4.extraConfig = {
       gtk-application-prefer-dark-theme = 1;
     };
+  };
+
+  xdg.configFile = {
+    "gtk-4.0/gtk.css".text = ''
+      @import url("file://${pkgs.rose-pine-gtk-theme}/share/themes/rose-pine/gtk-4.0/gtk.css");
+    '';
+
+    "Kvantum/rose-pine".source = "${pkgs.rose-pine-kvantum}/share/Kvantum/themes/rose-pine";
+    "Kvantum/kvantum.kvconfig".text = ''
+      [General]
+      theme=rose-pine
+    '';
   };
 
   xdg.mimeApps = {

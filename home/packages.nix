@@ -27,5 +27,11 @@
     fastfetch
     proton-vpn
     nautilus
+    libsForQt5.qtstyleplugin-kvantum
+    qt6Packages.qtstyleplugin-kvantum
+    libsForQt5.qt5ct
+    qt6Packages.qt6ct
+    rose-pine-cursor
+    rose-pine-kvantum
   ];
 }

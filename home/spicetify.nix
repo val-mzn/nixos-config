@@ -12,7 +12,7 @@ in
 
   programs.spicetify = {
     enable = true;
-    theme = spicePkgs.themes.matte;
-    colorScheme = "rose-pine-moon";
+    theme = spicePkgs.themes.ziro;
+    colorScheme = "rose-pine";
   };
 }

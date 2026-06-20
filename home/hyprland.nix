@@ -25,9 +25,11 @@
         "LIBVA_DRIVER_NAME,nvidia"
         "__GLX_VENDOR_LIBRARY_NAME,nvidia"
         "NIXOS_OZONE_WL,1"
-        "XCURSOR_THEME,Adwaita"
+        "XCURSOR_THEME,BreezeX-RosePine-Linux"
         "XCURSOR_SIZE,24"
-        "GTK_THEME,Adwaita:dark"
+        "GTK_THEME,rose-pine"
+        "QT_QPA_PLATFORMTHEME,qt5ct"
+        "QT_STYLE_OVERRIDE,kvantum"
       ];
 
       exec-once = [

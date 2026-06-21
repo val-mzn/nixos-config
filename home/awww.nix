@@ -6,7 +6,7 @@
 }:
 
 let
-  wallpaper = "${config.home.homeDirectory}/.dotfiles/wallpaper/imgur.jpg";
+  wallpaper = "${config.home.homeDirectory}/.dotfiles/wallpaper/base.jpg";
 in
 {
   home.packages = [ pkgs.awww ];

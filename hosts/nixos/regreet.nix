@@ -36,7 +36,7 @@
   };
 
   # Wallpaper accessible par le user système `greeter`.
-  environment.etc."greetd/wallpaper.jpg".source = ../../wallpaper/imgur.jpg;
+  environment.etc."greetd/wallpaper.jpg".source = ../../wallpaper/base.jpg;
 
   # Le user système `greeter` doit voir les thèmes : installer côté système.
   environment.systemPackages = with pkgs; [

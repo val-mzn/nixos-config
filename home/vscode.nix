@@ -15,6 +15,7 @@
         jnoortheen.nix-ide
         mvllow.rose-pine
         vscode-icons-team.vscode-icons
+        bradlc.vscode-tailwindcss
       ];
 
       userSettings = {

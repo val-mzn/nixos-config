@@ -47,6 +47,13 @@
     ];
   };
 
+  # Après rollback, /usr est recréé par l'activation NixOS (usrbinenv) sous
+  # umask root 077 → mode 0700, ce qui casse les apps qui scannent
+  # /usr/share/icons (Spotify, etc.). On force 0755 via tmpfiles.
+  systemd.tmpfiles.rules = [
+    "d /usr 0755 root root - -"
+  ];
+
   # Note : /home, /nix et /var/log sont des sous-volumes séparés (non effacés),
   # donc tes fichiers persistent sans rien déclarer ici.
 }

@@ -6,23 +6,6 @@
 }:
 
 {
-
-  programs.hyprland.enable = true;
-
-  # Backend requis par Nautilus (corbeille, montage USB/réseau, miniatures)
-  services.gvfs.enable = true;
-
-  # Requis pour que la préférence color-scheme (mode sombre) soit appliquée
-  programs.dconf.enable = true;
-
-  programs.nix-ld.enable = true;
-
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = false;
-  };
-
   # ReGreet (GTK) avec thème Rosé Pine.
   # Le module programs.regreet configure greetd + cage automatiquement.
   programs.regreet = {
@@ -62,19 +45,4 @@
     rose-pine-cursor
     inter
   ];
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    # Sous Hyprland, le portail hyprland ne fournit pas l'interface Settings
-    # (celle que libadwaita/Nautilus lit pour le mode sombre) : on la route
-    # explicitement vers le backend GTK.
-    config.common = {
-      default = [
-        "hyprland"
-        "gtk"
-      ];
-      "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
-    };
-  };
 }

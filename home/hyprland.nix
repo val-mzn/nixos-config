@@ -8,13 +8,23 @@
 {
 
   # Palette Rosé Pine (https://github.com/rose-pine/hyprland)
-  xdg.configFile."hypr/rose-pine.conf".source = ../configs/rose-pine.config;
+  xdg.configFile."hypr/rose-pine.conf".source = ../configs/hyprland/rose-pine.config;
+
+  # Window rules (Hyprland 0.55+ requires Lua API, hyprlang windowrule deprecated)
+  xdg.configFile."hypr/window-rules.lua".text = ''
+    hl.window_rule({ match = { class = "code" },  opacity = "0.85 override 0.85 override" })
+    hl.window_rule({ match = { class = "Code" },  opacity = "0.85 override 0.85 override" })
+    hl.window_rule({ match = { class = "kitty" }, opacity = "0.90 override 0.90 override" })
+  '';
 
   wayland.windowManager.hyprland = {
     enable = true;
     configType = "hyprlang";
     settings = {
-      source = "~/.config/hypr/rose-pine.conf";
+      source = [
+        "~/.config/hypr/rose-pine.conf"
+        "~/.config/hypr/window-rules.lua"
+      ];
 
       "$mod" = "SUPER";
       "$terminal" = "kitty";

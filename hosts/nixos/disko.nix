@@ -46,23 +46,38 @@
             subvolumes = {
               "@" = {
                 mountpoint = "/";
-                mountOptions = [ "compress=zstd" "noatime" ];
+                mountOptions = [
+                  "compress=zstd"
+                  "noatime"
+                ];
               };
               "@nix" = {
                 mountpoint = "/nix";
-                mountOptions = [ "compress=zstd" "noatime" ];
+                mountOptions = [
+                  "compress=zstd"
+                  "noatime"
+                ];
               };
               "@persist" = {
                 mountpoint = "/persist";
-                mountOptions = [ "compress=zstd" "noatime" ];
+                mountOptions = [
+                  "compress=zstd"
+                  "noatime"
+                ];
               };
               "@home" = {
                 mountpoint = "/home";
-                mountOptions = [ "compress=zstd" "noatime" ];
+                mountOptions = [
+                  "compress=zstd"
+                  "noatime"
+                ];
               };
               "@log" = {
                 mountpoint = "/var/log";
-                mountOptions = [ "compress=zstd" "noatime" ];
+                mountOptions = [
+                  "compress=zstd"
+                  "noatime"
+                ];
               };
             };
           };
@@ -71,7 +86,5 @@
     };
   };
 
-  # /persist doit être monté tôt et marqué "needed for boot" : c'est lui qui
-  # contient l'état réinjecté par impermanence avant le démarrage des services.
   fileSystems."/persist".neededForBoot = true;
 }

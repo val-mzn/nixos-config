@@ -33,5 +33,7 @@
     qt6Packages.qt6ct
     rose-pine-cursor
     rose-pine-kvantum
+    unzip
+    python3
   ];
 }

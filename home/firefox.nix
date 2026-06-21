@@ -29,31 +29,10 @@
 
       search = {
         force = true;
-        default = "SearXNG";
-        privateDefault = "SearXNG";
-        order = [ "SearXNG" ];
+        default = "Google";
+        privateDefault = "Google";
+        order = [ "Google" ];
         engines = {
-          "SearXNG" = {
-            urls = [
-              {
-                template = "http://localhost:8888/search";
-                params = [
-                  {
-                    name = "q";
-                    value = "{searchTerms}";
-                  }
-                ];
-              }
-            ];
-            icon = "http://localhost:8888/static/themes/simple/img/favicon.png";
-            updateInterval = 24 * 60 * 60 * 1000;
-            definedAliases = [
-              "@sx"
-              "@searx"
-            ];
-          };
-
-          "Google".metaData.hidden = true;
           "Bing".metaData.hidden = true;
           "Amazon.com".metaData.hidden = true;
           "eBay".metaData.hidden = true;
@@ -62,54 +41,7 @@
         };
       };
 
-      userChrome = ''
-        :root {
-          --rp-base:            #191724; /* frame / arrière-plan */
-          --rp-surface:         #1f1d2e; /* toolbar / popup */
-          --rp-overlay:         #26233a; /* champ d'URL */
-          --rp-highlight-med:   #524f67; /* surbrillance champ */
-          --rp-text:            #e0def4; /* texte toolbar */
-          --rp-subtle:          #908caa; /* texte onglets inactifs */
-          --rp-pine:            #31748f; /* ligne onglet actif */
-          --rp-rose:            #ebbcba; /* icônes */
-          --rp-love:            #eb6f92; /* icônes attention */
-
-          --toolbar-bgcolor:    var(--rp-surface) !important;
-          --toolbar-color:      var(--rp-text) !important;
-          --toolbarbutton-icon-fill: var(--rp-rose) !important;
-          --lwt-accent-color:   var(--rp-base) !important;
-          --tab-selected-bgcolor: var(--rp-surface) !important;
-        }
-
-        #navigator-toolbox,
-        #titlebar,
-        .tabbrowser-tab {
-          background-color: var(--rp-base) !important;
-          color: var(--rp-subtle) !important;
-        }
-
-        #nav-bar,
-        #PersonalToolbar {
-          background-color: var(--rp-surface) !important;
-          color: var(--rp-text) !important;
-        }
-
-        .tabbrowser-tab[selected] .tab-content {
-          color: var(--rp-text) !important;
-        }
-        .tabbrowser-tab[selected] {
-          box-shadow: 0 -2px 0 0 var(--rp-pine) inset !important;
-        }
-
-        #urlbar,
-        #searchbar {
-          background-color: var(--rp-overlay) !important;
-          color: var(--rp-text) !important;
-        }
-        #urlbar[focused] {
-          outline-color: var(--rp-highlight-med) !important;
-        }
-      '';
+      userChrome = builtins.readFile ../configs/firefox/userChrome.css;
     };
   };
 }

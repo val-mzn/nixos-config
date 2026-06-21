@@ -8,6 +8,7 @@
 {
   virtualisation.docker = {
     enable = true;
+    enableOnBoot = true;
     autoPrune.enable = true;
     daemon.settings = {
       log-driver = "journald";
@@ -18,5 +19,9 @@
 
   environment.systemPackages = with pkgs; [
     docker-compose
+  ];
+
+  environment.persistence."/persist".directories = [
+    "/var/lib/docker"
   ];
 }

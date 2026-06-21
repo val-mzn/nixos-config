@@ -15,12 +15,13 @@
     ./locale.nix
     ./users.nix
     ./nvidia.nix
-    ./desktop.nix
+    ./hyprland.nix
+    ./steam.nix
+    ./regreet.nix
+    ./xdg-portal.nix
     ./audio.nix
     ./packages.nix
-    ./searx.nix
     ./docker.nix
-    ./bento.nix
   ];
 
   nix.settings.experimental-features = [
